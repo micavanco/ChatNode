@@ -1,8 +1,24 @@
 const Joi = require('@hapi/joi');
+const helmet = require('helmet');
+const morgan = require('morgan');
 const express = require('express');
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.static('public'));
+app.use(helmet());
+
+if(app.get('env') === 'development') {
+    app.use(morgan('tiny'));
+    console.log('Morgan enabled');
+}
+
+
+app.use((req, res, next) => {
+    console.log('Authenticating');
+    next();
+});
 
 const users = [
     {id: 1, username: 'John', password: 'Walker'},
@@ -34,10 +50,8 @@ app.put('/api/users/:id', (req, res) => {
     const user = users.find(u => u.id === parseInt(req.params.id));
 
     if(!user)
-    {
-        res.status(404).send(`User of given id ${req.params.id} does not exists`);
-        return;
-    }
+        return res.status(404).send(`User of given id ${req.params.id} does not exists`);
+
 
     const { error } = validateUser(req.body);
 
@@ -57,6 +71,18 @@ app.get('/api/users/:id', (req, res) => {
 
     if(user)
         res.send(user);
+    else
+        res.status(404).send(`User of given id ${req.params.id} does not exists`);
+});
+
+app.delete('/api/users/:id', (req, res) => {
+    const user = users.find(u => u.id === parseInt(req.params.id));
+
+    if(user){
+        const index = users.indexOf(user);
+        users.splice(index, 1);
+        res.send(user);
+    }
     else
         res.status(404).send(`User of given id ${req.params.id} does not exists`);
 });
