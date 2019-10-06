@@ -1,0 +1,4 @@
+{
+  "name": "Chat Node App",
+  "db": "mongodb://localhost/chatnode"
+}
