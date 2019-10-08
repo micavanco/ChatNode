@@ -1,3 +1,7 @@
+const _ = require('lodash');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
 const express = require('express');
 const router = express.Router();
@@ -7,24 +11,39 @@ const router = express.Router();
 //     {id: 2, username: 'Bob', password: 'admin2'}
 // ];
 
+// router.get('/', async (req, res) => {
+//     const users = await User.find().sort('username');
+//     res.send(users);
+// });
+
 router.get('/', async (req, res) => {
-    const users = await User.find().sort('username');
-    res.send(users);
+    const user = await User.find({username: req.body.username});
+
+    if(user.length !== 0)
+        res.send(_.pick(user, ['_id', 'username', 'password', 'name', 'surname']));
+    else
+        res.status(404).send(`User of given username ${req.params.username} does not exists`);
 });
 
 router.post('/', async (req, res) => {
-    try{
-        let user = await new User({
-            username: req.body.username,
-            password: req.body.password,
-            name: req.body.name,
-            surname: req.body.surname
-        });
-        user = await user.save();
-        res.send(user);
-    }catch (e) {
-        res.status(400).send(e.message);
-    }
+    const { error } = validate( req.body );
+    if (error) return res.status(400).send(error.details[0].message);
+
+    let user = await User.findOne({username: req.body.username});
+    if(user) return res.status(400).send('User with given username already exists.');
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    user = new User({
+        username: req.body.username,
+        password: hashedPassword,
+        name: req.body.name,
+        surname: req.body.surname
+    });
+
+    user = await user.save();
+    res.send(user);
 });
 
 router.put('/', async (req, res) => {
@@ -42,15 +61,6 @@ router.put('/', async (req, res) => {
     }catch (e) {
         res.status(400).send(e.message);
     }
-});
-
-router.get('/:username', async (req, res) => {
-    const user = await User.find({username: req.params.username});
-
-    if(user.length !== 0)
-        res.send(user);
-    else
-        res.status(404).send(`User of given username ${req.params.username} does not exists`);
 });
 
 router.delete('/:username', async (req, res) => {

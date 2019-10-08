@@ -7,6 +7,7 @@ const startupDebugger = require('debug')('app:startup');
 const users = require('../routes/users');
 const home = require('../routes/home');
 const messages = require('../routes/messages');
+const auth = require('../routes/auth');
 
 module.exports = function(app) {
     app.set('view engine', 'pug');
@@ -18,7 +19,8 @@ module.exports = function(app) {
     app.use(helmet());
     app.use('/api/users', users);
     app.use('/', home);
-    app.use('/messages', messages);
+    app.use('/api/messages', messages);
+    app.use('/api/auth', auth);
 
 // Configuration
     console.log('Application Name: ' + config.get('name'));

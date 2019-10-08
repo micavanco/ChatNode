@@ -1,4 +1,5 @@
 {
   "name": "Chat Node App",
-  "db": "mongodb://localhost/chatnode"
+  "db": "mongodb://localhost/chatnode",
+  "jwtPrivateKey": "ChatNode"
 }

@@ -1,0 +1,4 @@
+server/node_modules
+server/dist/index.js
+server/dist/index.js.map
+.idea
