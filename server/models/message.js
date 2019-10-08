@@ -2,7 +2,7 @@ const Joi = require('@hapi/joi');
 const mongoose = require('mongoose');
 
 const messageSchema = new mongoose.Schema({
-    receiverId: {
+    userId: {
         type: String,
         required: true
     },
@@ -18,14 +18,16 @@ const messageSchema = new mongoose.Schema({
     }
 });
 
+const Message = mongoose.model('Message', messageSchema);
+
 function validateMessage(message) {
     const schema = {
-        receiverId: Joi.string().required(),
+        userId: Joi.string().required(),
         text: Joi.string().required()
     };
 
     return Joi.validate(message, schema);
 }
 
-exports.Message = messageSchema;
+exports.Message = Message;
 exports.validate = validateMessage;

@@ -23,8 +23,14 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     messages: {
-        type: Array,
-        required: true
+        sent: {
+            type: Array,
+            required: true
+        },
+        received: {
+            type: Array,
+            required: true
+        }
     },
     createdAt: { type: Date, default: Date.now}
 });

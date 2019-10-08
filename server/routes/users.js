@@ -1,8 +1,7 @@
 const _ = require('lodash');
-const jwt = require('jsonwebtoken');
-const config = require('config');
 const bcrypt = require('bcrypt');
 const {User, validate} = require('../models/user');
+const auth = require('../middleware/auth');
 const express = require('express');
 const router = express.Router();
 
@@ -16,8 +15,8 @@ const router = express.Router();
 //     res.send(users);
 // });
 
-router.get('/', async (req, res) => {
-    const user = await User.find({username: req.body.username});
+router.get('/', auth, async (req, res) => {
+    const user = await User.findById(req.user._id);
 
     if(user.length !== 0)
         res.send(_.pick(user, ['_id', 'username', 'password', 'name', 'surname']));
@@ -46,9 +45,9 @@ router.post('/', async (req, res) => {
     res.send(user);
 });
 
-router.put('/', async (req, res) => {
-    let user = await User.findOne({username: req.body.username});
-    if(!user) return res.status(404).send(`User of given username ${req.body.username} does not exists`);
+router.put('/', auth, async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if(!user) return res.status(404).send(`User does not exists`);
 
 
     try {
@@ -63,9 +62,9 @@ router.put('/', async (req, res) => {
     }
 });
 
-router.delete('/:username', async (req, res) => {
-    let user = await User.deleteOne({username: req.params.username});
-    if(!user) return res.status(404).send(`User of given username ${req.params.username} does not exists`);
+router.delete('/:username', auth, async (req, res) => {
+    let user = await User.deleteOne({_id: res.user._id});
+    if(!user) return res.status(404).send(`User of given username ${res.user._id} does not exists`);
 
     res.send(user);
 });
