@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
+const dbDebugger = require('debug')('app:db');
 
 // Db work...
 module.exports = function() {

@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    messages: {
+        type: Array,
+        required: true
+    },
     createdAt: { type: Date, default: Date.now}
 });
 
