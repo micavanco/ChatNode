@@ -38,7 +38,8 @@ router.post('/', async (req, res) => {
         username: req.body.username,
         password: hashedPassword,
         name: req.body.name,
-        surname: req.body.surname
+        surname: req.body.surname,
+        isAdmin: false
     });
 
     user = await user.save();
