@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import MainView from "./views/MainView";
 import LoginView from "./views/LoginView";
 
+import "./scss/views/appView.scss";
+
 function App() {
   return (
     <BrowserRouter>

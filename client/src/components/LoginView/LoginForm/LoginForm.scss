@@ -1,0 +1,75 @@
+@import "../../../scss/global";
+@import "../../../scss/abstracts/mixins";
+
+.login {
+  @include flexCenter(column);
+  max-width: 460px;
+  max-height: 360px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $validation-border;
+
+  &__form {
+    @include flexCenter(column);
+    text-align: left;
+
+    input {
+      margin-left: 15px;
+    }
+
+    label {
+      font-size: 12px;
+    }
+
+    &__username {
+      margin: 20px 0 5px 0;
+
+      &__input {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid $validation-inputs-border;
+        transition: all 0.4s ease-in-out;
+        &:focus {
+          border-bottom: 1px solid $validation-inputs-border-focus;
+        }
+      }
+    }
+
+    &__password {
+      margin: 5px 0 25px 0;
+
+      &__input {
+        outline: none;
+        border: none;
+        border-bottom: 1px solid $validation-inputs-border;
+        transition: all 0.4s ease-in-out;
+        &:focus {
+          border-bottom: 1px solid $validation-inputs-border-focus;
+        }
+      }
+    }
+
+  }
+
+  &__links {
+    @include flexCenter(column);
+    align-items: flex-end;
+    width: 100%;
+    font-size: 14px;
+
+    a {
+      margin-right: 20px;
+      cursor: pointer;
+      transition: all 0.6s ease-in-out;
+
+      &:hover {
+        text-decoration: underline rgba(255, 0, 0, 0.55);
+        color: rgba(255, 0, 0, 0.55);
+      }
+
+      &:active {
+        text-shadow: 1px 1px 1px rgb(255, 0, 0);
+      }
+    }
+  }
+}
