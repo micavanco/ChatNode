@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./LoginForm.scss";
 
-const LoginFormDisplay = () => {
+const LoginFormDisplay = ({changeToRegisterForm}) => {
     return (
         <div className="login">
             <h2>Login</h2>
@@ -20,7 +20,7 @@ const LoginFormDisplay = () => {
                 <button className="login__form__submit" type="submit">Submit</button>
             </div>
             <div className="login__links">
-                <a>Not have Account yet?</a>
+                <a onClick={changeToRegisterForm}>Not have Account yet?</a>
             </div>
         </div>
     );
