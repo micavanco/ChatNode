@@ -16,3 +16,9 @@ a {
   margin: 0;
   padding: 0;
 }
+
+.main-view {
+  @include flexCenter(row);
+  justify-content: space-around;
+  width: inherit;
+}
