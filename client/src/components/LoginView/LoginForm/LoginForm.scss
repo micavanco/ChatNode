@@ -37,6 +37,11 @@
           border-bottom: 1px solid $validation-inputs-border-focus;
         }
       }
+
+      &__error {
+        color: red;
+        font-size: 12px;
+      }
     }
 
     &__password {
@@ -50,6 +55,11 @@
         &:focus {
           border-bottom: 1px solid $validation-inputs-border-focus;
         }
+      }
+
+      &__error {
+        color: red;
+        font-size: 12px;
       }
     }
 

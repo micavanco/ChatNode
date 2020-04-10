@@ -21,4 +21,5 @@ a {
   @include flexCenter(row);
   justify-content: space-around;
   width: inherit;
+  height: inherit;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./RegisterForm.scss";
 
-const RegisterFormDisplay = ({changeToLoginForm}) => {
+const RegisterFormView = ({changeToLoginForm}) => {
     return (
         <div className="register">
             <h2>Create new User</h2>
@@ -35,10 +35,10 @@ const RegisterFormDisplay = ({changeToLoginForm}) => {
                 <button className="register__form__submit" type="submit">Create Account</button>
             </div>
             <div className="register__links">
-                <a onClick={changeToLoginForm}>Login user</a>
+                <div onClick={changeToLoginForm}>Login user</div>
             </div>
         </div>
     );
 };
 
-export default RegisterFormDisplay;
+export default RegisterFormView;

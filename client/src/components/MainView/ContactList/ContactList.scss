@@ -2,9 +2,12 @@
 @import "../../../scss/abstracts/mixins";
 
 .contact-list {
+  position: absolute;
+  top: 0;
+  left: 0;
   @include flexCenter(column);
   width: 240px;
-  height: 640px;
+  height: 99vh;
   border: 1px solid $contact-list-window-border;
   background: $contact-list-window-background;
 

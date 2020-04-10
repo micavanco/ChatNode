@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RegisterFormDisplay from "./RegisterFormView";
+import RegisterFormView from "./RegisterFormView";
 
 export default class RegisterForm extends Component {
 
@@ -8,6 +8,6 @@ export default class RegisterForm extends Component {
     };
 
     render() {
-        return <RegisterFormDisplay changeToLoginForm={this.changeToLoginForm.bind(this)}/>;
+        return <RegisterFormView changeToLoginForm={this.changeToLoginForm.bind(this)}/>;
     }
 }
