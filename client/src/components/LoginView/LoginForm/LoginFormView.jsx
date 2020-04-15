@@ -2,7 +2,7 @@ import React from 'react';
 
 import "./LoginForm.scss";
 
-const LoginFormView = ({changeToRegisterForm, onSubmitFunction, onChangeValueCheck, state}) => {
+const LoginFormView = ({changeToRegisterForm, onSubmitFunction, onChangeValueCheck, state, error, isLoading}) => {
     return (
         <div className="login">
             <h2>Login</h2>
@@ -43,8 +43,11 @@ const LoginFormView = ({changeToRegisterForm, onSubmitFunction, onChangeValueChe
                         ) : ''
                     }
                 </div>
+                {
+                    error ? <div>{error}</div> : error
+                }
 
-                <button className="login__form__submit" type="submit" disabled={state.isLoading}>Submit</button>
+                <button className="login__form__submit" type="submit" disabled={isLoading}>Submit</button>
             </form>
             <div className="login__links">
                 <div onClick={changeToRegisterForm}>Not have Account yet?</div>

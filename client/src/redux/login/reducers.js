@@ -1,16 +1,32 @@
-import ACTION_TYPES from '../actionsTypes';
+import { loginActions } from '../actionsTypes';
 
 const INITIAL_STATE = {
-    loginStatus: false,
-    user: {}
+    isLoading: false,
+    user: '',
+    error: ''
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case ACTION_TYPES.LOG_IN:
+        case loginActions.LOGIN_REQUEST:
             return {
                 ...state,
-                loginStatus: true
+                user: action.user,
+                isLoading: true
+            };
+        case loginActions.LOGIN_SUCCESSFUL:
+            return {
+                ...state,
+                user: action.user,
+                error: '',
+                isLoading: false
+            };
+        case loginActions.LOGIN_FAILURE:
+            return {
+                ...state,
+                user: '',
+                error: action.error,
+                isLoading: false
             };
         default:
             return state;

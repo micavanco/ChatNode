@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const config = require('config');
+var cors = require('cors');
+
+app.use(cors());
 
 if(!config.get('jwtPrivateKey')) {
     console.error('JWT key not defined...');

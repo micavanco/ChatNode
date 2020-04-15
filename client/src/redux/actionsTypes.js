@@ -1,9 +1,9 @@
-const LOG_IN = "LOG_IN";
-const LOG_OUT = "LOG_OUT";
-const REGISTER_USER = "REGISTER_USER";
+const LOGIN_REQUEST= "LOGIN_REQUEST";
+const LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL";
+const LOGIN_FAILURE = "LOGIN_FAILURE";
 
-export default {
-    LOG_IN,
-    LOG_OUT,
-    REGISTER_USER
+export const loginActions = {
+    LOGIN_SUCCESSFUL,
+    LOGIN_REQUEST,
+    LOGIN_FAILURE
 };

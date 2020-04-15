@@ -29,7 +29,8 @@ export default class LoginView extends Component {
     render = () => {
       let isLoginOn = this.state.isLoginWindowOn;
       return (
-          isLoginOn === true ? <LoginForm onRegisterWindowChange={this.onRegisterWindowChange.bind(this)}/> : <RegisterForm onLoginWindowChange={this.onLoginWindowChange.bind(this)}/>
+          isLoginOn === true ? <LoginForm history={this.props.history} onRegisterWindowChange={this.onRegisterWindowChange.bind(this)}/> :
+              <RegisterForm onLoginWindowChange={this.onLoginWindowChange.bind(this)}/>
       );
     };
 }

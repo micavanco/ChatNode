@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import login from '../../../redux/login/actions';
+import loginActions from '../../../redux/login/actions';
 import validateLogin from '../../../shared/Validations'
 
 import LoginFormView from "./LoginFormView";
@@ -12,7 +12,6 @@ class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
-            isLoading: false,
             errors: {}
         };
     }
@@ -30,7 +29,8 @@ class LoginForm extends Component {
     onSubmit = e => {
         e.preventDefault();
         if(this.isValid()) {
-
+            this.setState({ errors: {}, isLoading: true });
+            this.props.login(this.props.history, this.state);
         }
     };
 
@@ -52,8 +52,18 @@ class LoginForm extends Component {
             onSubmitFunction={this.onSubmit.bind(this)}
             onChangeValueCheck={this.onChangeValueCheck.bind(this)}
             state={this.state}
+            error={this.props.error}
+            isLoading={this.props.isLoading}
         />;
     }
 }
 
-export default connect(null, { login })(LoginForm);
+function mapStateToProps(state) {
+    return {
+        error: state.loginReducer.error,
+        isLoading: state.loginReducer.isLoading,
+        user: state.loginReducer.user
+    }
+}
+
+export default connect(mapStateToProps, { login: loginActions.login })(LoginForm);
